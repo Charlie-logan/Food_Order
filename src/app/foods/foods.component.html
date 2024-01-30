@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <br />
+    <div class="card">
+        <br />
+        <div style="padding: 10px;" class="form-group">
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" [(ngModel)]="searchedData">
+                    <!-- {{searchedData}} -->
+                </div>
+                <div class="row col">
+                    <div class="col">
+                        <label for="">Starting Price : </label>
+                        <input style="accent-color: blue;" type="range" class="form-control" min="0" max="1000"
+                            [(ngModel)]="startRange">
+                        <span>{{startRange}}</span>
+                    </div>
+                    <div class="col">
+                        <label for="">Ending Price : </label>
+                        <input style="accent-color: red;" type="range" class="form-control" min="0" max="1000"
+                            [(ngModel)]="endRange">
+                        <span>{{endRange}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div>
+                <button class="btn btn-danger" (click)="onReset">Reset</button>
+            </div> -->
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <tr>
+                        <th>Food Name : </th>
+                        <th>Food Description : </th>
+                        <th>Food Price : </th>
+                        <th>Food Image : </th>
+                    </tr>
+                    <tr class="row1" *ngFor="let fObj of foodList | rangeFilter: startRange : endRange | foodFilter: searchedData | paginate:{
+                                                                                itemsPerPage:3,
+                                                                                currentPage: startLink,
+                                                                                totalItems:totalRows 
+                    }">
+                        <td> {{fObj.food_name}} </td>
+                        <td> {{fObj.food_desc}} </td>
+                        <td> {{fObj.food_price}} </td>
+                        <td> <img [src]="fObj.food_image" alt="" height="100%" width="100%"> </td>
+                    </tr>
+                </table>
+                <pagination-controls (pageChange)="startLink = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
